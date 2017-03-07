@@ -1,6 +1,9 @@
 # Contributors :
 
-Morgan Seielstad
+Morgan Seielstad 
+
 Shawn Fortin 
+
 Connor Mendell
+
 Sam Clark
