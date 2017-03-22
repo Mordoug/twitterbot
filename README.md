@@ -1,9 +1,9 @@
 # Twitter Giveaway Bot
 
 ## Dependencies
-[Anaconda for Python 3](https://www.continuum.io/downloads) (Required for using python with the windows command line)
-[python-twitter](https://github.com/bear/python-twitter) - install with 'pip install python-twitter'
-[flask](http://flask.pocoo.org/) - install with 'pip install Flask'
+- [Anaconda for Python 3](https://www.continuum.io/downloads) (Required for using python with the windows command line)
+- [python-twitter](https://github.com/bear/python-twitter) - install with 'pip install python-twitter'
+- [flask](http://flask.pocoo.org/) - install with 'pip install Flask'
 
 ## Compile (Windows)
 1. Open a command window
