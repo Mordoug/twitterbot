@@ -10,9 +10,11 @@ def enter_giveaway(api, status):
     screen_name = attributes[1].split('=')
     
     status_str = status_string.encode('ascii', 'ignore')
-    str.lower(status_str)
+    status_str = status_str.lower()
     
-    if 'rt' in status_str:
+    if ' rt ' in status_str:
+        RT = True
+    if ' rt' in status_str:
         RT = True
     if 'retweet' in status_str:
         RT = True
@@ -41,4 +43,8 @@ results = api.GetSearch(
 #print ("%s", (results))
 
 for tweet in results:
-    enter_giveaway(api, tweet) 
+    try:
+        enter_giveaway(api, tweet)
+    except (twitter.TwitterError):
+        pass
+        
