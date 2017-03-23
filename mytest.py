@@ -20,18 +20,18 @@ def enter_giveaway(api, status):
     status_str = status_str.lower()
     
     # Check and act upon entry requirements of the giveaway
-    if ' rt ' in status_str:
+    if ' rt ' in str(status_str):
         RT = True
-    if ' rt' in status_str:
+    if ' rt' in str(status_str):
         RT = True
-    if 'retweet' in status_str:
+    if 'retweet' in str(status_str):
         RT = True
         
     if RT == True:
         api.PostRetweet(status_id[1])
-    if 'follow' in status_str:
+    if 'follow' in str(status_str):
         api.CreateFriendship(None, screen_name[1])
-    if 'favorite' in status_str:
+    if 'favorite' in str(status_str):
         api.CreateFavorite(None, status_id[1])
         
 
@@ -100,7 +100,6 @@ results['Itunes'] = search_itunes
 search_googleplay = api.GetSearch(
     raw_query="l=en&q=Giveaway%20google%20play%20since%3A2017-03-20%20until%3A2017-03-21&src=typd&count=100")
 results['Google Play'] = search_googleplay
-
 
 # Enter all tweets found in search above
 for tweet in search_default:
