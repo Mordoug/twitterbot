@@ -9,12 +9,25 @@
 </head>
 <body>
 
-    <h1>Test</h1>
-    
-    <!-- Builds the twitter timeline.  Built using the twitter tool for it. -->
-    <a class="twitter-timeline"  href="https://twitter.com/hashtag/giveaway" data-widget-id="845037644677570560">#giveaway Tweets</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-    </script>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Giveaway Bot</h1>
+            <br><br>
+
+            <h3>Add a filter:</h3>
+            <div class="container">
+                <form class="form-inline">
+                    <input type="text" class="form-control" id="add-filter-textbox" placeholder="Filter Name">
+                    <button type="button" class="btn btn-default" id="add-filter-button">Add Filter</button>
+                </form>
+            </div>
+            <br>
+
+            <h3>Current filters: (click to remove)</h3>
+            <br>
+            <div id="filters" class="container"></div>
+        </div>
+    </div>
           
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
