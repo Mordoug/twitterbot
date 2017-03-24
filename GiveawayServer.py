@@ -1,27 +1,48 @@
+from GiveawayManager import *
 from flask import Flask, render_template, jsonify
 app = Flask(__name__)
 
-tweets = {"gaming": ["tweet1", "tweet2", "tweet3"]}
+giveaway_manager = GiveawayManager()
+
 
 @app.route("/")
 def giveaway_page():
     return render_template("giveaways.html")
 
 
-@app.route("/api/tweets/<tweet_filter>")
-def get_tweets(tweet_filter=None):
-    message = {"error": None, "data": None}
+# TODO add error messages for api routes
 
-    if tweet_filter is None:
-        message["error"] = "Filter not specified"
-        return jsonify(message)
+@app.route("/api/getSearchFilters", methods=["GET"])
+def get_search_filters():
+    response = {"error": None, "data": None}
 
-    if tweet_filter in tweets:
-        message["data"] = tweets[tweet_filter]
-        return jsonify(message)
-    else:
-        message["error"] = tweet_filter + " is not a valid filter"
-        return jsonify(message)
+    response["data"] = giveaway_manager.search_terms
+    return jsonify(response)
+
+
+@app.route("/api/addSearchFilter/<search_filter>", methods=["GET"])
+def add_search_filter(search_filter=None):
+    response = {"error": None, "data": True}
+
+    giveaway_manager.add_search_term(search_filter)
+    return jsonify(response)
+
+
+@app.route("/api/removeSearchFilter/<search_filter>", methods=["GET"])
+def remove_search_filter(search_filter=None):
+    response = {"error": None, "data": True}
+
+    giveaway_manager.remove_search_term(search_filter)
+    return jsonify(response)
+
+
+@app.route("/api/getTweets/<search_filter>", methods=["GET"])
+def get_tweets(search_filter=None):
+    response = {"error": None, "data": None}
+
+    response["data"] = giveaway_manager.tweets[search_filter]
+    return jsonify(response)
 
 if __name__ == "__main__":
-    app.run()
+    app.debug = True
+    app.run(threaded=True)
