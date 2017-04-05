@@ -14,25 +14,30 @@ def enter_giveaway(api, status):
     attributes = status_string.split(',')
     status_id = attributes[0].split('=')
     screen_name = attributes[1].split('=')
+    content = attributes[3].split('=')
+    text = content[1]
+    is_retweet = text[:3]
     
-    # Convert the twitter.Status string from unicode to ascii
-    status_str = status_string.encode('ascii', 'ignore')
-    status_str = status_str.lower()
+    if is_retweet != "'RT" and is_retweet != '"RT':
     
-    # Check and act upon entry requirements of the giveaway
-    if ' rt ' in str(status_str):
-        RT = True
-    if ' rt' in str(status_str):
-        RT = True
-    if 'retweet' in str(status_str):
-        RT = True
+        # Convert the twitter.Status string from unicode to ascii
+        status_str = status_string.encode('ascii', 'ignore')
+        status_str = status_str.lower()
         
-    if RT == True:
-        api.PostRetweet(status_id[1])
-    if 'follow' in str(status_str):
-        api.CreateFriendship(None, screen_name[1])
-    if 'favorite' in str(status_str):
-        api.CreateFavorite(None, status_id[1])
+        # Check and act upon entry requirements of the giveaway
+        if ' rt ' in str(status_str):
+            RT = True
+        if ' rt' in str(status_str):
+            RT = True
+        if 'retweet' in str(status_str):
+            RT = True
+            
+        if RT == True:
+            api.PostRetweet(status_id[1])
+        if 'follow' in str(status_str):
+            api.CreateFriendship(None, screen_name[1])
+        if 'favorite' in str(status_str) or 'like' in str(status_str):
+            api.CreateFavorite(None, status_id[1])
         
 def custom_filter(user_filter):
     split_filter = user_filter.split(' ')
@@ -65,7 +70,7 @@ user_filter = 'macbook #film'
 search_custom = custom_filter(user_filter)
 results['Custom Filter'] = search_custom
 search_default = api.GetSearch(
-    raw_query="l=en&q=Giveaway%20since%3A2017-03-22%20until%3A2017-03-23&src=typd&count=100")
+    raw_query="l=en&q=Giveaway%20since%3A2017-03-22%20until%3A2017-04-05&src=typd&count=100")
 results['default'] = search_default
 search_game = api.GetSearch(
     raw_query="l=en&q=Giveaway%20game%20since%3A2017-03-22%20until%3A2017-03-23&src=typd&count=100")
@@ -120,7 +125,7 @@ search_googleplay = api.GetSearch(
 results['Google Play'] = search_googleplay
 
 # Enter all tweets found in search above
-for tweet in search_default:
+for tweet in results['default']:
     try:
         enter_giveaway(api, tweet)
     except (twitter.TwitterError):
