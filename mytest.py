@@ -43,6 +43,8 @@ def custom_filter(user_filter):
     split_filter = user_filter.split(' ')
     size = len(split_filter)
     new_string = ''
+    since = raw_input('Find Tweets since: (yyyy-mm-dd): ')
+    until = raw_input('Find Tweets until: (yyyy-mm-dd): ')
     for i in range(size):
         if split_filter[i][0] == '#':
             split_filter[i] = '%23' + split_filter[i][1:]
@@ -51,7 +53,7 @@ def custom_filter(user_filter):
         new_string += split_filter[i]
         new_string += '%20'
         i += 1
-    query = "l=en&q=Giveaway%20" + new_string + "since%3A2017-03-22%20until%3A2017-03-23&src=typd&count=100"
+    query = "l=en&q=Giveaway%20" + new_string + "since%3A" + since + "%20until%3A" + until + "&src=typd&count=100"
     return query
 
 
