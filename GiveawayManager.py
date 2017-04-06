@@ -15,6 +15,16 @@ class GiveawayManager:
         self.tweets = {}
 
         threading.Timer(2*60*60, self.get_tweets).start()  # update tweets every 2 hours
+        threading.Timer(900, self.giveaway_loop).start()
+
+    def giveaway_loop(self):
+        '''
+        pre: Pass in the tweets available
+        Post: calls the enter_giveaway def 15 times
+        Purpose: help ensure that the program doesnt go over the write limit
+        '''
+        for i in range(15):
+            self.enter_giveaway(self.tweets)
 
     def enter_giveaway(self, status):
         '''
