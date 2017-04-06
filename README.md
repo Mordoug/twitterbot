@@ -12,7 +12,7 @@
 4. run the test script with `python test_script.py`
 
 ## Libraries Used
-[TwitterSearch](https://github.com/ckoepp/TwitterSearch) and [Documentation](https://twittersearch.readthedocs.io/en/latest/)
+[Python-Twitter](https://github.com/bear/python-twitter) and [Documentation](https://python-twitter.readthedocs.io/en/latest/)
 
 
 
