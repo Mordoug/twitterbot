@@ -32,7 +32,7 @@ class GiveawayManager:
         Post: Retweet the tweet, favorite the tweet, and/or follow the user who posted the tweet as necessary
         Purpose: Enter a twitter giveaway based on instructions in the tweet
         '''
-        RT = False  # Track if retweeting is necessary
+        rt = False  # Track if retweeting is necessary
 
         # Convert the twitter.Status object into a string and split it up to enable use of the status id and screen name
         status_string = status.__repr__()
@@ -46,13 +46,13 @@ class GiveawayManager:
 
         # Check and act upon entry requirements of the giveaway
         if ' rt ' in str(status_str):
-            RT = True
+            rt = True
         if ' rt' in str(status_str):
-            RT = True
+            rt = True
         if 'retweet' in str(status_str):
-            RT = True
+            rt = True
 
-        if RT == True:
+        if rt:
             self.api.PostRetweet(status_id[1])
         if 'follow' in str(status_str):
             self.api.CreateFriendship(None, screen_name[1])
