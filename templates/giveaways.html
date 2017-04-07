@@ -1,39 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Giveaway Bot</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+  <title>Twitter Giveaway Bot</title>
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="jumbotron">
-            <h1>Giveaway Bot</h1>
-            <br><br>
+  <div class="container">
 
-            <h3>Add a filter:</h3>
-            <div class="container">
-                <form class="form-inline">
-                    <input type="text" class="form-control" id="add-filter-textbox" placeholder="Filter Name">
-                    <button type="button" class="btn btn-default" id="add-filter-button">Add Filter</button>
-                </form>
-            </div>
-            <br>
-
-            <h3>Current filters: (click to remove)</h3>
-            <br>
-            <div id="filters" class="container"></div>
-        </div>
+    <!-- header -->
+    <div class="jumbotron">
+      <img class="img-responsive" src="http://romanb.com/data/pics/twitterapi_logo.png">
+      <center><h1>TWITTER GIVEAWAY BOT</h1></center>
     </div>
-          
-    
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../static/giveaways.js"></script>
+
+
+    <!-- search bar -->
+    <div id="custom-search-input">
+        <div class="input-group col-md-12">
+          <input type="text" class="form-control" id="add-filter-textbox"  placeholder="Add Filter Name" />
+          <span class="input-group-btn">
+            <button class="btn btn-danger" id="add-filter-button" type="button">
+              <span class=" glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+      </div>
+    </div>
+
+    <h3>Current filters: (click to remove)</h3>
+    <div id="filters" class="container"></div>
+
+    <br>
+
+    <!-- page sections -->
+    <div class="row">
+      <div class="col-lg-6">
+        <h2>Section #1</h2>
+        <img class="img-responsive" src="http://technoflix.com/wp-content/uploads/2013/07/twitter_bot-300x300.png">
+        <p>
+          display some info here...
+          display some info here...
+          display some info here...
+          display some info here...
+          display some info here...
+        </p>
+      </div>
+
+      <div class="col-lg-6">
+        <h2>Section #2</h2>
+        <img class="img-responsive" src="http://technoflix.com/wp-content/uploads/2013/07/twitter_bot-300x300.png">
+        <p>
+          display some info here...
+          display some info here...
+          display some info here...
+          display some info here...
+          display some info here...
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <hr>
+      <p>&copy; Burlington Team Devlopers</p>
+    </footer>
+
+  </div> <!-- end container -->
+
+  <!-- Bootstrap scripts -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../static/giveaways.js"></script>
+
 </body>
 </html>
-
-
