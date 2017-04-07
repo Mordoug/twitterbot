@@ -93,7 +93,10 @@ def enter_giveaway(api, status):
         if RT == True:
             api.PostRetweet(status_id[1])
         if 'follow' in str(status_str):
-            api.CreateFriendship(None, screen_name[1])
+            if 'notification' in str(status_str):
+                api.CreateFriendship(None, screen_name[1], True)
+            else:
+                api.CreateFriendship(None, screen_name[1], False)
         if 'favorite' in str(status_str) or 'like' in str(status_str):
             api.CreateFavorite(None, status_id[1])
 
