@@ -8,7 +8,7 @@ class RateLimiter:
         self.auth_type = auth_type.value
         self.monitored_rate_limits = {}
 
-        self.API_WINDOW = 15  # seconds
+        self.API_WINDOW = 15 * 60  # seconds
 
     def execute_allowed_api_calls(self, rate_limit):
         api_queue = self.monitored_rate_limits[rate_limit.name]["api_queue"]
@@ -19,9 +19,8 @@ class RateLimiter:
                 break
 
             next_call = api_queue.get()
-            print("executing api call: " + str(next_call))
-
             next_call[0](*next_call[1])
+
             limit -= 1
             limits[self.auth_type] = limit
             self.monitored_rate_limits[rate_limit.name]["value"] = tuple(limits)
@@ -36,7 +35,6 @@ class RateLimiter:
 
     def add_api_call(self, rate_limit, api_call, *parameters):
         if rate_limit.name not in self.monitored_rate_limits:
-            print("new rate limit added: " + rate_limit.name)
             self.monitored_rate_limits[rate_limit.name] = {
                 "value": rate_limit.value,
                 "api_queue": Queue()
