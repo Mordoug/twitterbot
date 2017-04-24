@@ -32,32 +32,40 @@ class GiveawayManager:
         Post: Retweet the tweet, favorite the tweet, and/or follow the user who posted the tweet as necessary
         Purpose: Enter a twitter giveaway based on instructions in the tweet
         '''
-        rt = False  # Track if retweeting is necessary
-
+        RT = False  # Track if retweeting is necessary
+        
         # Convert the twitter.Status object into a string and split it up to enable use of the status id and screen name
         status_string = status.__repr__()
         attributes = status_string.split(',')
         status_id = attributes[0].split('=')
         screen_name = attributes[1].split('=')
-
-        # Convert the twitter.Status string from unicode to ascii
-        status_str = status_string.encode('ascii', 'ignore')
-        status_str = status_str.lower()
-
-        # Check and act upon entry requirements of the giveaway
-        if ' rt ' in str(status_str):
-            rt = True
-        if ' rt' in str(status_str):
-            rt = True
-        if 'retweet' in str(status_str):
-            rt = True
-
-        if rt:
-            self.api.PostRetweet(status_id[1])
-        if 'follow' in str(status_str):
-            self.api.CreateFriendship(None, screen_name[1])
-        if 'favorite' in str(status_str):
-            self.api.CreateFavorite(None, status_id[1])
+        content = attributes[3].split('=')
+        text = content[1]
+        is_retweet = text[:3]
+        
+        if is_retweet != "'RT" and is_retweet != '"RT':
+        
+            # Convert the twitter.Status string from unicode to ascii
+            status_str = status_string.encode('ascii', 'ignore')
+            status_str = status_str.lower()
+            
+            # Check and act upon entry requirements of the giveaway
+            if ' rt ' in str(status_str):
+                RT = True
+            if ' rt' in str(status_str):
+                RT = True
+            if 'retweet' in str(status_str):
+                RT = True
+                
+            if RT:
+                self.api.PostRetweet(status_id[1])
+            if 'follow' in str(status_str):
+                if 'notification' in str(status_str):
+                    self.api.CreateFriendship(None, screen_name[1], True)
+                else:
+                    self.api.CreateFriendship(None, screen_name[1], False)
+            if 'favorite' in str(status_str) or 'like' in str(status_str):
+                self.api.CreateFavorite(None, status_id[1])
 
     @staticmethod
     def get_query(search_term):

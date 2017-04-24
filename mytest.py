@@ -90,7 +90,7 @@ def enter_giveaway(api, status):
         if 'retweet' in str(status_str):
             RT = True
             
-        if RT == True:
+        if RT:
             api.PostRetweet(status_id[1])
         if 'follow' in str(status_str):
             if 'notification' in str(status_str):
