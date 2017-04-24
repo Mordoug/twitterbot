@@ -3,14 +3,8 @@ import threading
 
 
 class GiveawayManager:
-    def __init__(self):
-        self.api = twitter.Api(
-            consumer_key='cfNpeV5za47PJBmjm9GrjoQ3F',
-            consumer_secret='rxIa3R1nwPQSOwSHMCwlE0xOGfHqrDSnsvqJMFPFnnLc2CpXQA',
-            access_token_key='737864657659105280-fJpSG7fDSMW77jCBAmDMEkhpWBReRz8',
-            access_token_secret='LQjiiaKLRKeXFR6Ew0aaSIsSgb2CczPLIox9rG9FjA5ea'
-        )
-
+    def __init__(self, api_in):
+        self.api = api_in
         self.search_terms = []
         self.tweets = {}
 
