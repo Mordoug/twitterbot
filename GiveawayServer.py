@@ -41,7 +41,7 @@ def get_access_token(consumer_key, consumer_secret):
           '\n\t{0}'.format(url))
 
     webbrowser.open(url)
-    pincode = input('\nEnter your pincode? ')
+    pincode = raw_input('\nEnter your pincode? ')
 
     print('\nGenerating and signing request for an access token...\n')
 
@@ -66,7 +66,6 @@ def get_access_token(consumer_key, consumer_secret):
     return consumer_key, consumer_secret, resp.get('oauth_token'), resp.get('oauth_token_secret')
 
 giveaway_manager = GiveawayManager(startup())
-
 
 @app.route("/")
 def giveaway_page():
@@ -107,5 +106,4 @@ def get_tweets(search_filter=None):
     return jsonify(response)
 
 if __name__ == "__main__":
-    app.debug = True
     app.run(threaded=True)
