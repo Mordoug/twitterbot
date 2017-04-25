@@ -28,10 +28,8 @@ class RateLimiter:
     def timer_callback(self, rate_limit, api_call, *parameters):
         self.monitored_rate_limits[rate_limit.name]["value"] = rate_limit.value
         self.execute_allowed_api_calls(rate_limit)
-        threading.Timer(self.API_WINDOW, self.timer_callback, [rate_limit, api_call, parameters]).start()
-
-    def remove_rate_limit(self, rate_limit):  # TODO
-        pass
+        if not self.monitored_rate_limits[rate_limit.name]["api_queue"].empty():
+            threading.Timer(self.API_WINDOW, self.timer_callback, [rate_limit, api_call, parameters]).start()
 
     def add_api_call(self, rate_limit, api_call, *parameters):
         if rate_limit.name not in self.monitored_rate_limits:
