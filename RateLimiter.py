@@ -92,3 +92,5 @@ class TwitterRateLimit(Enum):
     USERS_SUGGESTIONS = (15, 15)
     USERS_SUGGESTIONS_SLUG = (15, 15)
     USERS_SUGGESTIONS_SLUG_MEMBERS = (15, 15)
+    RETWEET = (25, 0)
+    FOLLOW = (10, 0)

@@ -1,5 +1,6 @@
 import twitter
 import threading
+from RateLimiter import *
 
 
 class GiveawayManager:
@@ -7,9 +8,12 @@ class GiveawayManager:
         self.api = api_in
         self.search_terms = []
         self.tweets = {}
+        self.rateLimiter = RateLimiter(TwitterAuthType.USER_AUTH)
 
         threading.Timer(2*60*60, self.get_tweets).start()  # update tweets every 2 hours
         threading.Timer(900, self.giveaway_loop).start()
+
+        self.ENABLED = False
 
     def giveaway_loop(self):
         '''
@@ -52,13 +56,16 @@ class GiveawayManager:
                 RT = True
                 
             if RT:
-                self.api.PostRetweet(status_id[1])
+                self.rateLimiter.add_api_call(TwitterRateLimit.RETWEET, self.api.PostRetweet, status_id[1])
             if 'follow' in str(status_str):
                 if 'notification' in str(status_str):
-                    self.api.CreateFriendship(None, screen_name[1], True)
+                    self.rateLimiter.add_api_call(TwitterRateLimit.FOLLOW, self.api.CreateFriendship, None,
+                                                  screen_name[1], False)
                 else:
-                    self.api.CreateFriendship(None, screen_name[1], False)
+                    self.rateLimiter.add_api_call(TwitterRateLimit.FOLLOW, self.api.CreateFriendship, None,
+                                                  screen_name[1], False)
             if 'favorite' in str(status_str) or 'like' in str(status_str):
+                # no limit?
                 self.api.CreateFavorite(None, status_id[1])
 
     @staticmethod
@@ -71,14 +78,12 @@ class GiveawayManager:
     def get_tweets(self, search_term):
         self.tweets[search_term] = self.api.GetSearch(self.get_query(search_term))
 
-        # temp disable entering until we implement rate limiting
-        '''
-        for tweet in self.tweets[search_term]:
-            try:
-                self.enter_giveaway(tweet)
-            except twitter.TwitterError:
-                print("TwitterError")
-        '''
+        if self.ENABLED:
+            for tweet in self.tweets[search_term]:
+                try:
+                    self.enter_giveaway(tweet)
+                except twitter.TwitterError:
+                    print("TwitterError")
 
     def update_tweets(self):
         self.tweets = {}
