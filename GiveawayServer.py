@@ -12,13 +12,14 @@ AUTHORIZATION_URL = 'https://api.twitter.com/oauth/authorize'
 SIGNIN_URL = 'https://api.twitter.com/oauth/authenticate'
 
 
-def startup() :
-    key = input('Enter your consumer key: ')
-    secret = input('Enter your consumer secret: ')
+def startup():
+    key = raw_input('Enter your consumer key: ')
+    secret = raw_input('Enter your consumer secret: ')
     consumer_key, consumer_secret, access_token_key, access_token_secret = get_access_token(key, secret)
     api = twitter.Api(consumer_key, consumer_secret, access_token_key, access_token_secret)
     return api
-    
+
+
 # THIS FUNCTION BELONGS TO THE PYTON-TWITTER-LIBRARY  I CHANGED THE FUNCTION TO RETURN A TOUPLE WITH THE INFO
 # https://github.com/bear/python-twitter/blob/master/get_access_token.py
 def get_access_token(consumer_key, consumer_secret):
